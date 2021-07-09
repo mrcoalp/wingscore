@@ -5,5 +5,5 @@
     "context": ".."
   },
   "postCreateCommand": "flutter pub get",
-  "extensions": ["dart-code.dart-code", "dart-code.flutter"]
+  "extensions": ["dart-code.dart-code", "dart-code.flutter", "redhat.vscode-yaml"]
 }
