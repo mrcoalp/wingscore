@@ -14,27 +14,24 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      # Set up Flutter.
-      - name: Clone Flutter
-        uses: subosito/flutter-action@v1.5.0
+      # Set up Flutter
+      - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-
       - run: flutter doctor -v
 
-      # Checkout repo and get packages.
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
+      # Checkout repo and get packages
+      - uses: actions/checkout@v2
       - run: flutter pub get
 
-      # Analyze, check formatting, and run tests.
-      - run: flutter analyze
+      # Analyze, check formatting, and run tests
+      - name: Flutter Analyze
+        run: flutter analyze
 
-      - name: Ensure code is formatted correctly
+      - name: Ensure Indentation
         run: flutter format --set-exit-if-changed --dry-run .
 
-      - name: Run Flutter tests
+      - name: Run Flutter Tests
         run: flutter test
 
   # This should be eventually moved to a "on tag" workflow
@@ -43,16 +40,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      # Set up Flutter.
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-
       - run: flutter doctor -v
 
       # Checkout repo and get packages.
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - run: flutter pub get
 
       - name: Build Web
