@@ -10,8 +10,6 @@ class HomeScreen extends StatelessWidget {
       case 'About':
         Navigator.pushNamed(context, '/about');
         break;
-      default:
-        throw ErrorDescription('Invalid pop menu option!');
     }
   }
 
@@ -20,6 +18,7 @@ class HomeScreen extends StatelessWidget {
     const popMenuOptions = {'About'};
 
     final popMenuButton = PopupMenuButton<String>(
+      key: Key('home_screen_pop_menu'),
       onSelected: (String choice) => _handlePopMenuChoice(choice, context),
       itemBuilder: (BuildContext context) {
         return popMenuOptions.map((String choice) {
