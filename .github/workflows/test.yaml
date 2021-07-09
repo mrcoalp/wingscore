@@ -35,4 +35,10 @@ jobs:
         run: flutter format --set-exit-if-changed --dry-run .
 
       - name: Run Flutter Tests
-        run: flutter test
+        run: flutter test --coverage
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: ./coverage/lcov.info
