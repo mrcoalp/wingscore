@@ -1,0 +1,38 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      # Set up Flutter
+      - name: Flutter Setup
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+
+      # Checkout repo and get packages
+      - name: Checkout WingScore
+        uses: actions/checkout@v2
+
+      - name: Get Flutter Packages
+        run: flutter pub get
+
+      # Analyze, check formatting, and run tests
+      - name: Flutter Analyze
+        run: flutter analyze
+
+      - name: Ensure Indentation
+        run: flutter format --set-exit-if-changed --dry-run .
+
+      - name: Run Flutter Tests
+        run: flutter test
