@@ -16,7 +16,7 @@ void main() {
     final routeObserver = TestNavigationObserver();
 
     final home = MaterialApp(
-      routes: wingscoreRoutes,
+      routes: mRoutes,
       navigatorObservers: [routeObserver],
     );
 

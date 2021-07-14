@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  void _handlePopMenuChoice(String choice, BuildContext context) {
-    switch (choice) {
-      case 'About':
-        Navigator.pushNamed(context, '/about');
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    const popMenuOptions = {'About'};
+    final popMenuOptions = {'About'};
+
+    final popMenuItems = (BuildContext context) {
+      return popMenuOptions.map((String choice) {
+        return PopupMenuItem<String>(
+          value: choice,
+          child: Text(choice),
+        );
+      }).toList();
+    };
+
+    final handlePopMenuChoice = (String choice) {
+      switch (choice) {
+        case 'About':
+          Navigator.pushNamed(context, '/about');
+          break;
+      }
+    };
 
     final popMenuButton = PopupMenuButton<String>(
       key: Key('home_screen_pop_menu'),
-      onSelected: (String choice) => _handlePopMenuChoice(choice, context),
-      itemBuilder: (BuildContext context) {
-        return popMenuOptions.map((String choice) {
-          return PopupMenuItem<String>(
-            value: choice,
-            child: Text(choice),
-          );
-        }).toList();
-      },
+      onSelected: handlePopMenuChoice,
+      itemBuilder: popMenuItems,
     );
 
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text('WingScore'),
-        trailingActions: [popMenuButton],
+        actions: [popMenuButton],
       ),
     );
   }
