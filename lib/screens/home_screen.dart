@@ -5,10 +5,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final popMenuOptions = {'About'};
+    final popMenuItems = {'About', 'Settings'};
 
     final popMenuItemsBuilder = (_) {
-      return popMenuOptions.map((String choice) {
+      return popMenuItems.map((String choice) {
         return PopupMenuItem<String>(
           value: choice,
           child: Text(choice),
@@ -19,7 +19,8 @@ class HomeScreen extends StatelessWidget {
     final handlePopMenuChoice = (String choice) {
       switch (choice) {
         case 'About':
-          Navigator.pushNamed(context, '/about');
+        case 'Settings':
+          Navigator.pushNamed(context, '/$choice'.toLowerCase());
           break;
       }
     };

@@ -13,14 +13,14 @@ void main() {
   });
 
   group('home screen app bar trailing actions', () {
-    final routeObserver = TestNavigationObserver();
-
-    final home = MaterialApp(
-      routes: mRoutes,
-      navigatorObservers: [routeObserver],
-    );
-
     testWidgets('about screen shortcut', (tester) async {
+      final routeObserver = TestNavigationObserver();
+
+      final home = MaterialApp(
+        routes: mRoutes,
+        navigatorObservers: [routeObserver],
+      );
+
       await tester.pumpWidget(home);
 
       final popMenu = find.byKey(Key('home_screen_pop_menu'));
@@ -44,6 +44,43 @@ void main() {
       };
 
       await tester.tap(about);
+      await tester.pumpAndSettle();
+      expect(pushed, isTrue);
+    });
+
+    testWidgets('settings screen shortcut', (tester) async {
+      final routeObserver = TestNavigationObserver();
+
+      final home = MaterialApp(
+        routes: mRoutes,
+        navigatorObservers: [routeObserver],
+      );
+
+      await tester.pumpWidget(home);
+
+      final popMenu = find.byKey(Key('home_screen_pop_menu'));
+
+      expect(popMenu, findsOneWidget);
+      expect(find.text('Settings'), findsNothing);
+
+      await tester.tap(popMenu);
+      await tester.pumpAndSettle();
+
+      final settings = find.text('Settings');
+
+      expect(settings, findsOneWidget);
+
+      // Verify route pushing
+      var pushed = false;
+      routeObserver.onPushed = (Route<dynamic>? route, Route<dynamic>? prev) {
+        expect(route is PageRoute, isTrue);
+        expect(prev is PageRoute, isTrue);
+        expect(route!.settings.name == '/settings', isTrue);
+        expect(prev!.settings.name == '/', isTrue);
+        pushed = true;
+      };
+
+      await tester.tap(settings);
       await tester.pumpAndSettle();
       expect(pushed, isTrue);
     });
