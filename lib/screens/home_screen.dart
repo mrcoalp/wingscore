@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final popMenuOptions = {'About'};
 
-    final popMenuItems = (BuildContext context) {
+    final popMenuItemsBuilder = (_) {
       return popMenuOptions.map((String choice) {
         return PopupMenuItem<String>(
           value: choice,
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     final popMenuButton = PopupMenuButton<String>(
       key: Key('home_screen_pop_menu'),
       onSelected: handlePopMenuChoice,
-      itemBuilder: popMenuItems,
+      itemBuilder: popMenuItemsBuilder,
     );
 
     return Scaffold(
