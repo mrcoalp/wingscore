@@ -13,3 +13,5 @@ final mRoutes = {
   '/about': (_) => AboutScreen(),
   '/settings': (_) => SettingsScreen()
 };
+
+final mPersistence = {'theme': 'kThemeMode'};

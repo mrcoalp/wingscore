@@ -6,13 +6,13 @@ import 'package:wingscore/screens/home_screen.dart';
 import '../utils.dart';
 
 void main() {
-  testWidgets('home screen initial state is correct', (tester) async {
+  testWidgets('[screens] home screen initial state is correct', (tester) async {
     await tester.pumpWidget(MaterialApp(home: HomeScreen()));
 
     expect(find.text('WingScore'), findsOneWidget);
   });
 
-  group('home screen app bar trailing actions', () {
+  group('[screens] home screen app bar trailing actions', () {
     testWidgets('about screen shortcut', (tester) async {
       final routeObserver = TestNavigationObserver();
 
